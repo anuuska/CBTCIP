@@ -4,14 +4,13 @@ import java.util.Scanner;
 
 public class GuessingNumber {
 	
-	public static final int min = 1;
-	public static final int max = 100;
-	public static final int maxAttempts = 10;
-	public static final int maxRounds = 3;
+    public static final int min = 1;
+    public static final int max = 100;
+    public static final int maxAttempts = 10;
+    public static final int maxRounds = 3;
 
 public static void main(String[] args){
-	// TODO Auto-generated method stub
-	Random rd = new Random();
+    Random rd = new Random();
     Scanner sc = new Scanner(System.in);
     int totalScore = 0, attempts = 0, rem_attempt = 0;
     System.out.println("GUESS THE NUMBER GAME");
@@ -58,5 +57,5 @@ public static void main(String[] args){
             break;
         }
       }    
-	}
+   }
 }
