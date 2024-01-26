@@ -1,0 +1,62 @@
+import java.util.Random;
+
+import java.util.Scanner;
+
+public class GuessingNumber {
+	
+	public static final int min = 1;
+	public static final int max = 100;
+	public static final int maxAttempts = 10;
+	public static final int maxRounds = 3;
+
+public static void main(String[] args){
+	// TODO Auto-generated method stub
+	Random rd = new Random();
+    Scanner sc = new Scanner(System.in);
+    int totalScore = 0, attempts = 0, rem_attempt = 0;
+    System.out.println("GUESS THE NUMBER GAME");
+    System.out.println("Total number of rounds in this game: 3");
+    System.out.println("Total number of attempts that can be made to guess the number: 10");
+    for (int i = 1; i <= maxRounds; i++){
+    	int number_gen = rd.nextInt(max) + min; //generating a random number
+    	System.out.println("----Round " + i + "----");
+        System.out.println("Guess the number between " +  min + " and " + max + "."); 		
+        while (attempts < maxAttempts) {
+        	System.out.println("Enter the number you guessed: ");
+            int number_guess = sc.nextInt();
+            attempts = attempts + 1;
+            if (number_guess == number_gen){
+            	if(attempts<10){
+            		rem_attempt = maxAttempts - attempts;
+                    totalScore = totalScore + rem_attempt;
+                    System.out.println("Well Done! You have guessed the number correctly. Attempts = " + attempts + ", Score after round " + i + " = " + totalScore + ".");
+                    break;  
+            	}
+            	else{
+            		rem_attempt = maxAttempts - attempts;
+                    totalScore = totalScore + rem_attempt + 1;
+                    System.out.println("Bravo! You have guessed the number correctly. Attempts = " + attempts + ", Score after round " + i + " = " + totalScore + ".");
+                    break;  
+            	}                          
+            }
+            else if(number_guess < number_gen){
+            	rem_attempt = maxAttempts - attempts;
+                System.out.println("The number is greater than " + number_guess + "." + " Attempts Left = " + rem_attempt + ".");
+            }
+            else if(number_guess > number_gen){
+            	rem_attempt = maxAttempts - attempts;
+                System.out.println("The number is less than " + number_guess + "." + " Attempts Left = " + rem_attempt + ".");
+            }
+        }
+
+        if(attempts == maxAttempts){
+            System.out.println("The generated random number was: " + number_gen);
+            //System.out.println("The score of round " + i + " is: " + totalScore);
+            System.out.println("----GAME OVER!!!----");
+            System.out.println("You ended the game at round " + i);
+            System.out.println("Your total score = " + totalScore);
+            break;
+        }
+      }    
+	}
+}
