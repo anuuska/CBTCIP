@@ -1,30 +1,11 @@
 import java.util.Scanner;
 
 class account{
-
-	String name, username, password, accountNumber;
-	float balance = 500000;
-	int transactions = 0;
-	String history = "";
 	
-	//function to register in ATM system
-	public void register(){
-		Scanner sc = new Scanner(System.in);
-		System.out.println();
-		System.out.print("Enter your name: ");
-		this.name = sc.nextLine();
-		System.out.println();
-		System.out.print("Enter your username: ");
-		this.username = sc.nextLine();
-		System.out.println();
-		System.out.print("Enter your password: ");
-		this.password = sc.nextLine();
-		System.out.println();
-		System.out.print("Enter your account number: ");
-		this.accountNumber = sc.nextLine();
-		System.out.println();
-		System.out.println("Your registration procedure is completed. Kindly login.");
-	}
+	int transactions = 0;
+	String name, username, password, accountNumber;
+	String history = "";
+	float bankBalance = 500000;
 	
 	//function to login
 	public boolean login(){
@@ -55,24 +36,23 @@ class account{
 		return Login;
 	}
 	
-	//function to withdraw amount
-	public void withdraw() {
+	//function to register in ATM system
+	public void register(){
 		Scanner sc = new Scanner(System.in);
 		System.out.println();
-		System.out.print("Enter amount to withdraw: ");
-		float amount = sc.nextFloat();
-		if(balance<amount){
-			System.out.println();
-			System.out.println("Insufficient Balance.");
-		}
-		else{
-			transactions++;
-			balance = balance - amount;
-			System.out.println();
-			System.out.println("Withdraw is successfully completed.");
-			String statement = "Rs. " + amount + " withdrawed" + "\n";
-			history = history.concat(statement);
-		}
+		System.out.print("Enter your name: ");
+		this.name = sc.nextLine();
+		System.out.println();
+		System.out.print("Enter your username: ");
+		this.username = sc.nextLine();
+		System.out.println();
+		System.out.print("Enter your password: ");
+		this.password = sc.nextLine();
+		System.out.println();
+		System.out.print("Enter your account number: ");
+		this.accountNumber = sc.nextLine();
+		System.out.println();
+		System.out.println("Your registration procedure is completed. Kindly login.");
 	}
 	
 	//function to deposit amount
@@ -87,31 +67,51 @@ class account{
 		}
 		else{
 			transactions++;
-			balance = balance + amount;
+			bankBalance = bankBalance + amount;
 			System.out.println();
 			System.out.println("Amount is successfully deposited.");
 			String statement = "Rs. " + amount + " deposited" + "\n";
 			history = history.concat(statement);
 		}
 	}
-		
+			
+	//function to withdraw a certain amount
+	public void withdraw() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println();
+		System.out.print("Enter amount to withdraw: ");
+		float amount = sc.nextFloat();
+		if(bankBalance<amount){
+			System.out.println();
+			System.out.println("Insufficient balance in bank account.");
+		}
+		else{
+			transactions++;
+			bankBalance = bankBalance - amount;
+			System.out.println();
+			System.out.println("Withdraw is successfully completed.");
+			String statement = "Rs. " + amount + " withdrawed" + "\n";
+			history = history.concat(statement);
+		}
+	}
+	
 	//function to transfer amount to a recipient 
 	public void transfer(){
 		Scanner sc = new Scanner(System.in);
 		System.out.println();
-		System.out.print("Enter Receipent's Name: ");
+		System.out.print("Enter receipent's name: ");
 		String receipent = sc.nextLine();
 		System.out.println();
 		System.out.print("Enter amount to transfer: ");
 		float amount = sc.nextFloat();
-		if(balance<amount){
+		if(bankBalance<amount){
 			System.out.println();
-			System.out.println("Insufficient balance in account.");
+			System.out.println("Insufficient balance in bank account.");
 		}
 		else{
 			if(amount<=20000){
 				transactions++;
-				balance = balance - amount;
+				bankBalance = bankBalance - amount;
 				System.out.println();
 				System.out.println("Required amount is successfully transferred to " + receipent+ ".");
 				String str = "Rs. " + amount + " transferred to " + receipent + "\n";
@@ -137,15 +137,15 @@ class account{
 }
 
 public class ATMinterface{
-	public static int integerInput(int limit){
-		Scanner sc = new Scanner(System.in);
-		int input = 0;
+	public static int Inputinteger(int limit){
 		boolean temp = false;
+		int value = 0;
+		Scanner sc = new Scanner(System.in);
 		while(!temp){
 			try{
-				input = sc.nextInt();
+				value = sc.nextInt();
 				temp = true;
-				if(temp && input > limit || input < 1){
+				if(temp && value > limit || value < 1){
 					System.out.println("Please choose the number between 1 to " + limit + ".");
 					temp = false;
 				}
@@ -155,7 +155,7 @@ public class ATMinterface{
 				temp = false;
 			}
 		};
-		return input;
+		return value;
 	}
 	
 	public static void main(String[] args){
@@ -164,7 +164,7 @@ public class ATMinterface{
 		System.out.println("1.Register\n2.Exit");
 		System.out.println();
 		System.out.print("Enter Your Choice: ");
-		int choice1 = integerInput(2);
+		int choice1 = Inputinteger(2);
 		if (choice1 == 1){
 			account a = new account();
 			a.register();
@@ -172,7 +172,7 @@ public class ATMinterface{
 			    System.out.println("\n1.Login \n2.Exit");
 			    System.out.println();
 			    System.out.print("Enter Your Choice: ");
-			    int choice2 = integerInput(2);
+			    int choice2 = Inputinteger(2);
 			    if(choice2 == 1){
 			  	    if(a.login()){
 					    System.out.println();
@@ -183,7 +183,7 @@ public class ATMinterface{
 						    System.out.println("\n1.Transaction History \n2.Withdraw \n3.Deposit \n4.Transfer \n5.Exit");
 						    System.out.println();
 						    System.out.print("Enter Your Choice: ");
-						    int c = integerInput(5);
+						    int c = Inputinteger(5);
 						    switch(c){
 							    case 1:
 							    a.transactionHistory();
