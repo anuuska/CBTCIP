@@ -51,7 +51,6 @@ public static void main(String[] args){
 
         if(attempts == maxAttempts){
             System.out.println("The generated random number was: " + number_gen);
-            //System.out.println("The score of round " + i + " is: " + totalScore);
             System.out.println("----GAME OVER!!!----");
             System.out.println("You ended the game at round " + i);
             System.out.println("Your total score = " + totalScore);
